@@ -1,5 +1,10 @@
 # YouTube Views Predictor 📺
 
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![CI/CD](https://github.com/shree-crypto/YoutubeViewsPredictor/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/shree-crypto/YoutubeViewsPredictor/actions)
+
 An advanced machine learning system to predict YouTube video views based on video parameters including title, duration, keywords, publishing time, and more. Built with state-of-the-art gradient boosting models and an intuitive Streamlit interface.
 
 ## 📖 Documentation
@@ -18,6 +23,9 @@ An advanced machine learning system to predict YouTube video views based on vide
 ## 🎯 Features
 
 - **Accurate View Prediction**: Predicts video views using ensemble machine learning models (XGBoost/LightGBM)
+- **Multiple Interfaces**: 
+  - Interactive Streamlit web UI
+  - REST API with FastAPI (see [API_DOCS.md](API_DOCS.md))
 - **Comprehensive Feature Engineering**: Analyzes 25+ features including:
   - Title analysis (length, sentiment, special characters)
   - Temporal features (publish time, day of week, peak hours)
@@ -106,9 +114,21 @@ streamlit run app.py
 
 The app will open in your browser at `http://localhost:8501`
 
+### Docker Installation (Alternative)
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Train model in Docker
+docker-compose --profile training up training
+
+# Access app at http://localhost:8501
+```
+
 ## 📊 Usage
 
-### Web Interface (Recommended)
+### Web Interface (Streamlit)
 
 1. **Launch the app**: `streamlit run app.py`
 2. **Enter video parameters**:
@@ -122,6 +142,31 @@ The app will open in your browser at `http://localhost:8501`
    - Confidence interval
    - Optimization suggestions
    - Comparison with optimal parameters
+
+### REST API (FastAPI)
+
+1. **Start the API server**:
+```bash
+uvicorn api:app --reload
+# or
+python api.py
+```
+
+2. **Make predictions** via HTTP requests:
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Amazing Tutorial 2024!",
+    "duration_minutes": 10.0,
+    "publish_hour": 18,
+    "publish_date": "2024-01-15"
+  }'
+```
+
+3. **View interactive docs**: http://localhost:8000/docs
+
+See [API_DOCS.md](API_DOCS.md) for complete API documentation.
 
 ### Programmatic Usage
 
@@ -277,6 +322,25 @@ Contributions are welcome! Areas for improvement:
 - Channel-specific features (subscriber count, previous videos)
 - Trend analysis and seasonal adjustments
 - A/B testing framework
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+### Development Setup
+
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Install pre-commit hooks
+pre-commit install
+
+# Run tests
+pytest test_basic.py --cov=utils
+
+# Format code
+black .
+isort .
+```
 
 ## 📝 Research References
 
