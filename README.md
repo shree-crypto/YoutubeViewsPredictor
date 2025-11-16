@@ -97,12 +97,28 @@ pip install -r requirements.txt
 ```
 
 3. **Train the model**:
+
+**Option A: Train with synthetic data (quick start)**
 ```bash
 python train_model.py
 ```
 
+**Option B: Train with real YouTube Trending dataset (recommended)**
+```bash
+# First, download the Trending YouTube Video Statistics dataset from Kaggle
+# Place it in data/raw/ directory (e.g., data/raw/US_youtube_trending_data.csv)
+python train_model.py --dataset data/raw/US_youtube_trending_data.csv
+```
+
+**Option C: Train with sample size limit**
+```bash
+# Use only 5000 samples from a large dataset
+python train_model.py --dataset data/raw/US_youtube_trending_data.csv --sample-size 5000
+```
+
 This will:
-- Generate a sample dataset (1000 videos)
+- Load the dataset (synthetic or real YouTube data)
+- Extract features from video metadata
 - Train the XGBoost model
 - Save the trained model to `models/` directory
 - Display training metrics and feature importance
@@ -206,7 +222,8 @@ YoutubeViewsPredictor/
 │
 ├── utils/
 │   ├── feature_engineering.py  # Feature extraction and engineering
-│   └── model_training.py       # Model training and prediction
+│   ├── model_training.py       # Model training and prediction
+│   └── data_loader.py          # YouTube dataset loading and preprocessing
 │
 ├── data/
 │   ├── raw/                    # Raw data (gitignored)
@@ -222,29 +239,57 @@ YoutubeViewsPredictor/
 
 ## 🎓 Datasets
 
-### Sample Dataset
+### Quick Start with Synthetic Data
 The project includes functionality to generate synthetic datasets for demonstration:
 ```bash
 python train_model.py
 ```
 
-### Real YouTube Data
-To use real YouTube data:
+### Training with Real YouTube Data (Recommended)
 
-1. **YouTube API Method**:
+The model can be trained on real YouTube Trending data for significantly improved accuracy.
+
+#### 1. **Kaggle Datasets** (Recommended):
+Download the Trending YouTube Video Statistics dataset from Kaggle:
+- [Trending YouTube Video Statistics](https://www.kaggle.com/datasnaek/youtube-new)
+- [YouTube Video Dataset](https://www.kaggle.com/rsrishav/youtube-trending-video-dataset)
+
+**Steps:**
+```bash
+# 1. Download dataset from Kaggle (CSV format)
+# 2. Place in data/raw/ directory
+mv ~/Downloads/US_youtube_trending_data.csv data/raw/
+
+# 3. Train model with the dataset
+python train_model.py --dataset data/raw/US_youtube_trending_data.csv
+
+# Optional: Use a sample for faster training
+python train_model.py --dataset data/raw/US_youtube_trending_data.csv --sample-size 5000
+```
+
+The data loader automatically handles:
+- ISO 8601 duration format conversion (PT15M33S → seconds)
+- Multiple column name variations (publish_time, publishedAt, etc.)
+- Tag format normalization (pipe | or comma , separated)
+- Error video filtering
+- Missing data handling
+
+#### 2. **YouTube API Method**:
    - Get API key from [Google Cloud Console](https://console.cloud.google.com/)
    - Use YouTube Data API v3 to fetch video statistics
    - Store in `data/raw/`
 
-2. **Kaggle Datasets**:
-   - [Trending YouTube Video Statistics](https://www.kaggle.com/datasnaek/youtube-new)
-   - [YouTube Video Dataset](https://www.kaggle.com/rsrishav/youtube-trending-video-dataset)
+#### 3. **Expected Data Format**:
 
-3. **Data Format**:
+The data loader supports the standard Kaggle YouTube Trending format with columns like:
 ```csv
-title,duration,tags,publish_time,description,views
-"Video Title",600,"tag1,tag2","2024-01-15 18:00:00","Description text",10000
+video_id,title,channel_title,publish_time,tags,views,likes,description,duration
+dQw4w9WgXcQ,"Amazing Tutorial!",TechChannel,2024-01-15T18:00:00Z,"tag1|tag2|tag3",125000,8500,"Tutorial description",PT15M30S
 ```
+
+Minimum required columns: `title`, `views`
+
+Optional but recommended: `duration`, `tags`, `publish_time`, `description`
 
 ## 💡 Optimization Tips
 
