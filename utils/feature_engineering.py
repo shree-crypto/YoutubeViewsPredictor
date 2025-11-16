@@ -183,8 +183,8 @@ class FeatureExtractor:
         description_length = len(description)
         word_count = len(description.split())
         
-        # Count URLs in description
-        url_pattern = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+        # Count URLs in description (simplified pattern)
+        url_pattern = r'https?://[^\s]+'
         link_count = len(re.findall(url_pattern, description))
         
         return {
