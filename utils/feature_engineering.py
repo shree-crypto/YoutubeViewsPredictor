@@ -102,11 +102,15 @@ class FeatureExtractor:
                 dt = pd.to_datetime(publish_time)
             except:
                 dt = datetime.now()
+        elif isinstance(publish_time, datetime):
+            dt = publish_time
+        elif hasattr(publish_time, 'to_pydatetime'):
+            dt = publish_time.to_pydatetime()
         else:
             dt = publish_time
         
         hour = dt.hour
-        day_of_week = dt.dayofweek
+        day_of_week = dt.weekday()  # Use weekday() instead of dayofweek
         month = dt.month
         
         # Weekend indicator (Saturday=5, Sunday=6)
