@@ -2,6 +2,15 @@
 
 An advanced machine learning system to predict YouTube video views based on video parameters including title, duration, keywords, publishing time, and more. Built with state-of-the-art gradient boosting models and an intuitive Streamlit interface.
 
+## 📖 Documentation
+
+**New to the project? Start here:**
+- 🚀 **[Quick Start](QUICKSTART.md)** - Get running in 5 minutes
+- 📘 **[Getting Started Guide](GETTING_STARTED.md)** - Complete beginner-friendly walkthrough
+- 💡 **[Practical Examples](EXAMPLES.md)** - Real-world scenarios and use cases
+- 📚 **[Usage Guide](USAGE_GUIDE.md)** - Detailed usage instructions
+- 🔧 **[Technical Documentation](TECHNICAL_DOCS.md)** - Architecture and implementation details
+
 ## 🎯 Features
 
 - **Accurate View Prediction**: Predicts video views using ensemble machine learning models (XGBoost/LightGBM)
