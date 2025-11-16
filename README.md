@@ -23,6 +23,9 @@ An advanced machine learning system to predict YouTube video views based on vide
 ## 🎯 Features
 
 - **Accurate View Prediction**: Predicts video views using ensemble machine learning models (XGBoost/LightGBM)
+- **Multiple Interfaces**: 
+  - Interactive Streamlit web UI
+  - REST API with FastAPI (see [API_DOCS.md](API_DOCS.md))
 - **Comprehensive Feature Engineering**: Analyzes 25+ features including:
   - Title analysis (length, sentiment, special characters)
   - Temporal features (publish time, day of week, peak hours)
@@ -125,7 +128,7 @@ docker-compose --profile training up training
 
 ## 📊 Usage
 
-### Web Interface (Recommended)
+### Web Interface (Streamlit)
 
 1. **Launch the app**: `streamlit run app.py`
 2. **Enter video parameters**:
@@ -139,6 +142,31 @@ docker-compose --profile training up training
    - Confidence interval
    - Optimization suggestions
    - Comparison with optimal parameters
+
+### REST API (FastAPI)
+
+1. **Start the API server**:
+```bash
+uvicorn api:app --reload
+# or
+python api.py
+```
+
+2. **Make predictions** via HTTP requests:
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Amazing Tutorial 2024!",
+    "duration_minutes": 10.0,
+    "publish_hour": 18,
+    "publish_date": "2024-01-15"
+  }'
+```
+
+3. **View interactive docs**: http://localhost:8000/docs
+
+See [API_DOCS.md](API_DOCS.md) for complete API documentation.
 
 ### Programmatic Usage
 
