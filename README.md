@@ -1,5 +1,10 @@
 # YouTube Views Predictor 📺
 
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![CI/CD](https://github.com/shree-crypto/YoutubeViewsPredictor/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/shree-crypto/YoutubeViewsPredictor/actions)
+
 An advanced machine learning system to predict YouTube video views based on video parameters including title, duration, keywords, publishing time, and more. Built with state-of-the-art gradient boosting models and an intuitive Streamlit interface.
 
 ## 📖 Documentation
@@ -105,6 +110,18 @@ streamlit run app.py
 ```
 
 The app will open in your browser at `http://localhost:8501`
+
+### Docker Installation (Alternative)
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Train model in Docker
+docker-compose --profile training up training
+
+# Access app at http://localhost:8501
+```
 
 ## 📊 Usage
 
@@ -277,6 +294,25 @@ Contributions are welcome! Areas for improvement:
 - Channel-specific features (subscriber count, previous videos)
 - Trend analysis and seasonal adjustments
 - A/B testing framework
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+### Development Setup
+
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Install pre-commit hooks
+pre-commit install
+
+# Run tests
+pytest test_basic.py --cov=utils
+
+# Format code
+black .
+isort .
+```
 
 ## 📝 Research References
 

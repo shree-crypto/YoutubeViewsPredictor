@@ -1,0 +1,86 @@
+# YouTube Views Predictor Configuration
+
+# Model Configuration
+model:
+  type: xgboost  # Options: xgboost, lightgbm
+  random_state: 42
+  test_size: 0.2
+  
+  # XGBoost parameters
+  xgboost:
+    n_estimators: 200
+    max_depth: 8
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    n_jobs: -1
+  
+  # LightGBM parameters
+  lightgbm:
+    n_estimators: 200
+    max_depth: 8
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    n_jobs: -1
+    verbose: -1
+
+# Data Configuration
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  sample_size: 1000
+  output_file: data/processed/sample_data.csv
+
+# Model Persistence
+persistence:
+  model_dir: models
+  model_file: "{model_type}_model.joblib"
+  scaler_file: scaler.joblib
+  config_file: model_config.json
+
+# Feature Engineering
+features:
+  # Title features
+  title:
+    optimal_length_min: 50
+    optimal_length_max: 70
+  
+  # Temporal features
+  temporal:
+    peak_hour_start: 18
+    peak_hour_end: 21
+    weekend_days: [5, 6]  # Saturday, Sunday
+  
+  # Duration features
+  duration:
+    short_max: 60  # seconds
+    medium_max: 600  # seconds
+    optimal_min: 420  # 7 minutes
+    optimal_max: 900  # 15 minutes
+  
+  # Tags features
+  tags:
+    optimal_count_min: 10
+    optimal_count_max: 15
+
+# Logging Configuration
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: logs/app.log
+
+# Streamlit App Configuration
+streamlit:
+  page_title: YouTube Views Predictor
+  page_icon: 📺
+  layout: wide
+  confidence_interval_lower: 0.8
+  confidence_interval_upper: 1.2
+
+# API Configuration (if implementing REST API)
+api:
+  host: 0.0.0.0
+  port: 8000
+  reload: true
+  log_level: info
