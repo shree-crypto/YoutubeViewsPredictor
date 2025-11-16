@@ -8,8 +8,10 @@ An advanced machine learning system to predict YouTube video views based on vide
 - 🚀 **[Quick Start](QUICKSTART.md)** - Get running in 5 minutes
 - 📘 **[Getting Started Guide](GETTING_STARTED.md)** - Complete beginner-friendly walkthrough
 - 💡 **[Practical Examples](EXAMPLES.md)** - Real-world scenarios and use cases
+- 📋 **[Optimization Cheat Sheet](CHEATSHEET.md)** - Quick reference for best practices
 - 📚 **[Usage Guide](USAGE_GUIDE.md)** - Detailed usage instructions
 - 🔧 **[Technical Documentation](TECHNICAL_DOCS.md)** - Architecture and implementation details
+- ❓ **[FAQ](FAQ.md)** - Frequently asked questions and troubleshooting
 
 ## 🎯 Features
 
