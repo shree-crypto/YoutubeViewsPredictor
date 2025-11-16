@@ -13,6 +13,8 @@ An advanced machine learning system to predict YouTube video views based on vide
 - 🔧 **[Technical Documentation](TECHNICAL_DOCS.md)** - Architecture and implementation details
 - ❓ **[FAQ](FAQ.md)** - Frequently asked questions and troubleshooting
 
+**→ [View Complete Documentation Index](DOCS_INDEX.md)** - All docs with learning paths
+
 ## 🎯 Features
 
 - **Accurate View Prediction**: Predicts video views using ensemble machine learning models (XGBoost/LightGBM)
